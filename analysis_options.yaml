@@ -1,0 +1,18 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/src/common/presentation/localization/intl/*.dart
+    - lib/src/common/presentation/localization/*.dart
+    - pre_order_products_updater/**/*.dart
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+  errors:
+    missing_required_param: error
+
+linter:
+  rules:
+    sort_constructors_first: true
+    require_trailing_commas: true
+    prefer_single_quotes: true
+    always_use_package_imports: true

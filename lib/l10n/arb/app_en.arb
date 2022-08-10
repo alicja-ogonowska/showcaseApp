@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "counterAppBarTitle": "Counter",
+  "@counterAppBarTitle": {
+    "description": "Text shown in the AppBar of the Counter Page"
+  },
+  "posts": "Posts",
+  "profile": "Profile",
+  "email": "E-mail",
+  "password": "Password",
+  "passwordTooShort": "Your password is too short. It should be at least 6 characters long.",
+  "login": "Login",
+  "loginToYourAccount": "Login to your account",
+  "logout": "Logout",
+  "show": "Show",
+  "hide": "Hide"
+}
