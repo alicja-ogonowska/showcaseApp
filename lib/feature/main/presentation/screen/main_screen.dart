@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showcase_app/feature/main/presentation/cubit/navigation_cubit.dart';
 import 'package:showcase_app/feature/main/presentation/widget/bottom_tab_bar.dart';
+import 'package:showcase_app/feature/main/presentation/widget/tab_navigator.dart';
 import 'package:showcase_app/feature/posts/domain/use_case/get_posts_use_case.dart';
 import 'package:showcase_app/feature/posts/presentation/cubit/posts_cubit.dart';
 import 'package:showcase_app/feature/posts/presentation/screen/posts_screen.dart';
@@ -23,10 +24,7 @@ class _MainScreenState extends State<MainScreen>
   late TabController _tabController;
   var _tabSelectedIndex = 0;
 
-  final List<Widget> _screens = const [
-    PostsScreen(),
-    ProfileScreen(),
-  ];
+  final tabNavigatorStates = TabNavigatorStates();
 
   @override
   void initState() {
@@ -61,7 +59,21 @@ class _MainScreenState extends State<MainScreen>
                   _tabController.animateTo(state.index);
                 });
               },
-              child: _screens[_tabSelectedIndex],
+              child: TabNavigator(
+                key: tabNavigatorStates.tabNavigator,
+                tabs: <TabItem>[
+                  TabItem(
+                    tabNavigatorStates.tabPosts,
+                    const PostsScreen(),
+                  ),
+                  TabItem(
+                    tabNavigatorStates.tabProfile,
+                    const ProfileScreen(),
+                  ),
+                ],
+                selectedIndex: _tabSelectedIndex,
+                // popStack: _tabPopStack,
+              ),
             ),
           ),
           bottomNavigationBar: BottomTabBar(

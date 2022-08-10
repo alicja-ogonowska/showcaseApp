@@ -7,24 +7,28 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n.profile),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: Text(
-              context.l10n.loginToYourAccount,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: FocusScope.of(context).unfocus,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(context.l10n.profile),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Text(
+                context.l10n.loginToYourAccount,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          LoginForm(onLogin: _onLogin),
-        ],
+            LoginForm(onLogin: _onLogin),
+          ],
+        ),
       ),
     );
   }
