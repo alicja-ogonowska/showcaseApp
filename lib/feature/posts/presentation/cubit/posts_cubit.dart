@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:showcase_app/base/common/result/result.dart';
 import 'package:showcase_app/feature/posts/domain/entity/post.dart';
@@ -15,9 +14,7 @@ class PostsCubit extends Cubit<PostsState> {
   PostsCubit({
     required GetPostsUseCase getPostsUseCase,
   })  : _getPostsUseCase = getPostsUseCase,
-        super(const PostsState.initial()) {
-    debugPrint('test');
-  }
+        super(const PostsState.initial());
 
   final GetPostsUseCase _getPostsUseCase;
 
