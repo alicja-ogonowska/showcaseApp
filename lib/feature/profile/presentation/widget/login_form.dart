@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
 import 'package:showcase_app/feature/profile/presentation/widget/form_text_field.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 
@@ -46,7 +48,6 @@ class _LoginFormState extends State<LoginForm> {
             FormTextField(
               textInputType: TextInputType.emailAddress,
               title: context.l10n.email,
-              //   key: const Key(LoginFormKeys.emailTextField),
               controller: _emailController,
               focusNode: _emailFocusNode,
               nextFocusNode: _passwordFocusNode,
@@ -54,7 +55,6 @@ class _LoginFormState extends State<LoginForm> {
             ),
             const SizedBox(height: 16),
             FormTextField(
-              //  key: const Key(LoginFormKeys.passwordTextField),
               textInputType: TextInputType.visiblePassword,
               isObscured: isObscured,
               title: context.l10n.password,
@@ -80,11 +80,20 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             const SizedBox(height: 32),
-            OutlinedButton(
-              //key: const Key(LoginFormKeys.loginButton),
-              onPressed: _submitLogin,
-
-              child: Text(context.l10n.login),
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) => OutlinedButton(
+                onPressed: _submitLogin,
+                child: state.whenOrNull(
+                      loading: (_) => const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                    ) ??
+                    Text(context.l10n.login),
+              ),
             ),
           ],
         ),

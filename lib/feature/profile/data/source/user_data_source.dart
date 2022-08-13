@@ -1,9 +1,9 @@
-import 'package:showcase_app/feature/profile/domain/entity/user.dart';
+import 'package:showcase_app/feature/profile/data/model/user_model.dart';
 
 abstract class UserDataSource {
-  Future<User?> checkAuthenticatedUser();
+  Future<UserModel?> checkAuthenticatedUser();
 
-  Future<User> login(String email, String password);
+  Future<UserModel> login(String email, String password);
 
   Future<void> logout();
 }

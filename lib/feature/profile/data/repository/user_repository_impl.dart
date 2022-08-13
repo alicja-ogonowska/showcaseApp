@@ -19,7 +19,14 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<User?>> checkAuthenticatedUser() async {
     try {
-      final user = await _dataSource.checkAuthenticatedUser();
+      final model = await _dataSource.checkAuthenticatedUser();
+      final user = model != null
+          ? User(
+              name: model.name,
+              id: model.id,
+              email: model.email,
+            )
+          : null;
       return Result(user);
     } catch (e, s) {
       _logger.e('Checking authenticated user has failed', e, s);
@@ -30,8 +37,14 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Result<User>> login(String email, String password) async {
     try {
-      final user = await _dataSource.login(email, password);
-      return Result(user);
+      final model = await _dataSource.login(email, password);
+      return Result(
+        User(
+          name: model.name,
+          id: model.id,
+          email: model.email,
+        ),
+      );
     } catch (e, s) {
       _logger.e('Login has failed', e, s);
       return Result.failure(Failure(e, s));

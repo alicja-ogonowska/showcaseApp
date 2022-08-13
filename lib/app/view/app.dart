@@ -10,6 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:showcase_app/feature/main/presentation/cubit/navigation_cubit.dart';
 import 'package:showcase_app/feature/main/presentation/screen/main_screen.dart';
+import 'package:showcase_app/feature/profile/domain/use_case/check_authenticated_user_use_case.dart';
+import 'package:showcase_app/feature/profile/domain/use_case/login_use_case.dart';
+import 'package:showcase_app/feature/profile/domain/use_case/logout_use_case.dart';
+import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
+import 'package:showcase_app/injection/injection.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -29,8 +34,20 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: BlocProvider(
-        create: (_) => NavigationCubit(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => NavigationCubit(),
+          ),
+          BlocProvider(
+            create: (_) => UserCubit(
+              loginUseCase: getIt.get<LoginUseCase>(),
+              logoutUseCase: getIt.get<LogoutUseCase>(),
+              checkAuthenticatedUserUseCase:
+                  getIt.get<CheckAuthenticatedUserUseCase>(),
+            )..checkAuthenticatedUser(),
+          ),
+        ],
         child: const MainScreen(),
       ),
     );

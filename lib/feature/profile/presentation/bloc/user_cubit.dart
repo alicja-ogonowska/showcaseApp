@@ -31,7 +31,9 @@ class UserCubit extends Cubit<UserState> {
     final result = await _checkAuthenticatedUserUseCase();
     emit(
       result.when(
-        UserState.authenticated,
+        (user) => user != null
+            ? UserState.authenticated(user)
+            : UserState.unauthenticated(user),
         failure: (failure) => const UserState.unauthenticated(null),
       ),
     );
