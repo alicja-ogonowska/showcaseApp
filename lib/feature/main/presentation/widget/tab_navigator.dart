@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class TabNavigator extends StatefulWidget {
   const TabNavigator({
-    Key? key,
+    super.key,
     required this.tabs,
     required this.selectedIndex,
     this.popStack = false,
-  }) : super(key: key);
+  });
 
   final List<TabItem> tabs;
   final int selectedIndex;
@@ -34,9 +34,8 @@ class TabNavigatorState extends State<TabNavigator> {
     return Stack(
       children: List.generate(
         widget.tabs.length,
-            (index) {
+        (index) {
           return _Tab(
-            observers: [],//index == 0 ? [homeRouteObserver] : [],
             tabs: widget.tabs,
             selectedIndex: widget.selectedIndex,
             index: index,
@@ -49,14 +48,11 @@ class TabNavigatorState extends State<TabNavigator> {
 
 class _Tab extends StatelessWidget {
   const _Tab({
-    Key? key,
-    required this.observers,
     required this.tabs,
     required this.selectedIndex,
     required this.index,
-  }) : super(key: key);
+  });
 
-  final List<NavigatorObserver> observers;
   final List<TabItem> tabs;
   final int selectedIndex;
   final int index;
@@ -69,7 +65,6 @@ class _Tab extends StatelessWidget {
         opacity: selectedIndex == index ? 1.0 : 0.0,
         child: Navigator(
           key: tabs[index].key,
-          observers: observers,
           onGenerateRoute: (settings) => MaterialPageRoute(
             settings: settings,
             builder: (_) => tabs[index].tab,
@@ -96,5 +91,4 @@ class TabNavigatorStates {
   final GlobalKey<TabNavigatorState> tabNavigator;
   final GlobalKey<NavigatorState> tabPosts;
   final GlobalKey<NavigatorState> tabProfile;
-
 }

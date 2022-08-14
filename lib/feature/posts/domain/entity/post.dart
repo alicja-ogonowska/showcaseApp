@@ -8,7 +8,6 @@ class Post extends Equatable {
     required this.id,
   });
 
-
   final String title;
   final String body;
   final int id;

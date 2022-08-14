@@ -22,13 +22,10 @@ class FormTextField extends StatefulWidget {
   final FocusNode focusNode;
   final FocusNode? nextFocusNode;
   final FormTextFieldValidator? validator;
-
   final ValueChanged<String>? onSubmitted;
-
   final TextInputAction textInputAction;
   final TextInputType textInputType;
   final String title;
-
   final bool isObscured;
   final Widget? suffix;
   final String? error;
@@ -43,44 +40,7 @@ class _FormTextFieldState extends State<FormTextField> {
   @override
   void initState() {
     super.initState();
-    widget.focusNode.addListener(_onFocusChanged);
     _validator = widget.validator;
-  }
-
-  void _onFocusChanged() {
-    if (widget.focusNode.hasFocus) {
-      _disableValidation();
-    } else {
-      _enableValidation();
-    }
-  }
-
-  void _disableValidation() {
-    setState(() {
-      _validator = (String? value) => null;
-    });
-  }
-
-  void _enableValidation() {
-    setState(() {
-      _validator = widget.validator;
-    });
-  }
-
-  Key? _getKey({String prefix = 'LABEL_'}) {
-    var label = prefix;
-    final key = widget.key;
-    if (key is LabeledGlobalKey) {
-      // LabeledGlobalKey uses debugLabel in toString()
-      // but adds a shortHash with a space before it
-      // so we skip it to get debugLabel
-      label += key.toString().split(' ').last.replaceFirst(']', '');
-    } else if (key is ValueKey<String>) {
-      label += key.value;
-    } else {
-      return null;
-    }
-    return Key(label);
   }
 
   @override
@@ -88,12 +48,9 @@ class _FormTextFieldState extends State<FormTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          widget.title,
-        ),
+        Text(widget.title),
         const SizedBox(height: 8),
         TextFormField(
-          key: _getKey(prefix: 'FIELD_'),
           controller: widget.controller,
           keyboardType: widget.textInputType,
           focusNode: widget.focusNode,
@@ -101,7 +58,6 @@ class _FormTextFieldState extends State<FormTextField> {
           obscureText: widget.isObscured,
           validator: _validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          onEditingComplete: _enableValidation,
           onFieldSubmitted: (String value) {
             widget.nextFocusNode?.requestFocus();
             widget.onSubmitted?.call(value);
@@ -114,13 +70,13 @@ class _FormTextFieldState extends State<FormTextField> {
               borderRadius: BorderRadius.all(
                 Radius.circular(2),
               ),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderSide: BorderSide(color: Colors.grey),
             ),
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(2),
               ),
-              borderSide: BorderSide(color: Colors.indigoAccent),
+              borderSide: BorderSide(color: Colors.blue),
             ),
             border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
@@ -132,11 +88,5 @@ class _FormTextFieldState extends State<FormTextField> {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    widget.focusNode.removeListener(_onFocusChanged);
-    super.dispose();
   }
 }

@@ -14,10 +14,10 @@ class UserDataSourceImpl implements UserDataSource {
 
   @override
   Future<UserModel?> checkAuthenticatedUser() async {
-await _getSomeDelay();
+    await _getSomeDelay();
     final String? savedUser = _sharedPreferences.get(userKey) as String?;
     if (savedUser != null) {
-      return UserModel(email: savedUser, name: 'Name', id: '123');
+      return UserModel(email: savedUser, name: _getUserName(savedUser));
     }
     return null;
   }
@@ -26,7 +26,7 @@ await _getSomeDelay();
   Future<UserModel> login(String email, String password) async {
     await _getSomeDelay();
     _sharedPreferences.setString(userKey, email);
-    return UserModel(email: email, name: 'Name', id: '123');
+    return UserModel(email: email, name: _getUserName(email));
   }
 
   @override
@@ -34,9 +34,14 @@ await _getSomeDelay();
     _sharedPreferences.remove(userKey);
   }
 
-
   Future<void> _getSomeDelay() async {
     await Future.delayed(const Duration(seconds: 1));
   }
 
+  String _getUserName(String email) {
+    var name = email.substring(0, email.lastIndexOf('@'));
+    name = name.replaceAll('.', ' ').replaceAll('-', ' ').replaceAll('_', ' ');
+    name = name.split(' ').first;
+    return '${name[0].toUpperCase()}${name.substring(1).toLowerCase()}';
+  }
 }

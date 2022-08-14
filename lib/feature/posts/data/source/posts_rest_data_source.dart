@@ -29,7 +29,7 @@ class PostsRestDataSource implements PostsDataSource {
     final results = response.data as List;
     return List<PostModel>.of(
       results.map(
-        (result) => PostModel.fromJson(result as Map<String,dynamic>),
+        (result) => PostModel.fromJson(result as Map<String, dynamic>),
       ),
     );
   }

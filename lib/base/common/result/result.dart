@@ -20,7 +20,7 @@ class Result<T> with _$Result<T> {
 class Failure with _$Failure {
   /// Creates a failure with a [value] and [stackTrace].
   const factory Failure(
-      dynamic value, [
-        StackTrace? stackTrace,
-      ]) = _ErrorFailure;
+    dynamic value, [
+    StackTrace? stackTrace,
+  ]) = _ErrorFailure;
 }

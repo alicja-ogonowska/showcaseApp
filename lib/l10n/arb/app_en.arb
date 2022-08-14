@@ -13,5 +13,15 @@
   "loginToYourAccount": "Login to your account",
   "logout": "Logout",
   "show": "Show",
-  "hide": "Hide"
+  "hide": "Hide",
+  "checkPosts": "Check what other users are talking about!",
+  "goodToSeeYou": "Good to see you again, {name}!",
+  "@goodToSeeYou": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "wrongEmailFormat": "Please provide valid e-mail address.",
+  "somethingWentWrong": "Oops, something went wrong!",
+  "tryAgain": "Try again"
 }

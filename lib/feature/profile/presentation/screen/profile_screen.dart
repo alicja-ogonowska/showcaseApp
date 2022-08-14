@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:showcase_app/common/presentation/widget/button.dart';
+import 'package:showcase_app/feature/profile/domain/entity/user.dart';
 import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
 import 'package:showcase_app/feature/profile/presentation/widget/login_form.dart';
 import 'package:showcase_app/l10n/l10n.dart';
@@ -13,13 +16,11 @@ class ProfileScreen extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(context.l10n.profile),
-        ),
+        backgroundColor: Colors.white,
         body: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             return state.whenOrNull(
-                  authenticated: (authenticated) => _AuthenticatedUserView(),
+                  authenticated: (user) => _AuthenticatedUserView(user!),
                 ) ??
                 _UnauthenticatedUserView();
           },
@@ -30,13 +31,29 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class _AuthenticatedUserView extends StatelessWidget {
+  const _AuthenticatedUserView(this.user);
+
+  final User user;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: OutlinedButton(
-        onPressed: () => context.read<UserCubit>().logout(),
-        child: Text(context.l10n.logout),
-      ),
+    return Column(
+      children: [
+        const SizedBox(height: 40),
+        Text(
+          context.l10n.goodToSeeYou(user.name),
+          style: GoogleFonts.patrickHand(fontSize: 30),
+          textAlign: TextAlign.center,
+        ),
+        const Image(image: AssetImage('assets/welcome.webp')),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Button(
+            child: Text(context.l10n.logout),
+            onPressed: () => context.read<UserCubit>().logout(),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -44,22 +61,24 @@ class _AuthenticatedUserView extends StatelessWidget {
 class _UnauthenticatedUserView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: Text(
-            context.l10n.loginToYourAccount,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              context.l10n.loginToYourAccount,
+              style: GoogleFonts.patrickHand(fontSize: 30),
+              textAlign: TextAlign.center,
             ),
           ),
-        ),
-        LoginForm(
-          onLogin: (email, password) => _onLogin(context, email, password),
-        ),
-      ],
+          const Image(image: AssetImage('assets/login.webp')),
+          LoginForm(
+            onLogin: (email, password) => _onLogin(context, email, password),
+          ),
+        ],
+      ),
     );
   }
 

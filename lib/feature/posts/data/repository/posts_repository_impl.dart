@@ -24,10 +24,11 @@ class PostsRepositoryImpl implements PostsRepository {
       final posts = postModels
           .map(
             (model) => Post(
-                id: model.id,
-                title: model.title,
-                body: model.body,
-                userId: model.userId),
+              id: model.id,
+              title: model.title,
+              body: model.body,
+              userId: model.userId,
+            ),
           )
           .toList();
 

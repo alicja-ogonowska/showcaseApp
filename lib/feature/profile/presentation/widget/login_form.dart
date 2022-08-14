@@ -1,5 +1,7 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showcase_app/common/presentation/widget/button.dart';
 import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
 import 'package:showcase_app/feature/profile/presentation/widget/form_text_field.dart';
 import 'package:showcase_app/l10n/l10n.dart';
@@ -51,7 +53,11 @@ class _LoginFormState extends State<LoginForm> {
               controller: _emailController,
               focusNode: _emailFocusNode,
               nextFocusNode: _passwordFocusNode,
-              //  validator: _addressValidator.validateEmail,
+              validator: (String? email) => email != null
+                  ? (EmailValidator.validate(email)
+                      ? null
+                      : context.l10n.wrongEmailFormat)
+                  : null,
             ),
             const SizedBox(height: 16),
             FormTextField(
@@ -81,18 +87,22 @@ class _LoginFormState extends State<LoginForm> {
             ),
             const SizedBox(height: 32),
             BlocBuilder<UserCubit, UserState>(
-              builder: (context, state) => OutlinedButton(
-                onPressed: _submitLogin,
-                child: state.whenOrNull(
-                      loading: (_) => const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
+              builder: (context, state) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Button(
+                  onPressed: _submitLogin,
+                  child: state.whenOrNull(
+                        loading: (_) => const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ) ??
-                    Text(context.l10n.login),
+                      ) ??
+                      Text(context.l10n.login),
+                ),
               ),
             ),
           ],

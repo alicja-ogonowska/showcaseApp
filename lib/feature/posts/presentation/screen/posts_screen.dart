@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:showcase_app/common/presentation/widget/button.dart';
 import 'package:showcase_app/feature/posts/domain/entity/post.dart';
 import 'package:showcase_app/feature/posts/presentation/cubit/posts_cubit.dart';
 import 'package:showcase_app/feature/posts/presentation/widget/add_posts_button.dart';
@@ -11,19 +13,8 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _PostsView();
-  }
-}
-
-class _PostsView extends StatelessWidget {
-  const _PostsView();
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n.posts),
-      ),
+      backgroundColor: Colors.white,
       body: BlocBuilder<PostsCubit, PostsState>(
         builder: (context, state) {
           return state.map(
@@ -31,10 +22,8 @@ class _PostsView extends StatelessWidget {
             loading: (_) => const Center(
               child: CircularProgressIndicator(),
             ),
-            loaded: (state) => _PostsList(state.posts),
-            failure: (_) => const Center(
-              child: Text('Error'),
-            ),
+            loaded: (state) => _PostsView(state.posts),
+            failure: (_) => _ErrorView(),
           );
         },
       ),
@@ -42,8 +31,36 @@ class _PostsView extends StatelessWidget {
   }
 }
 
-class _PostsList extends StatelessWidget {
-  const _PostsList(this.posts);
+class _ErrorView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              context.l10n.somethingWentWrong,
+              style: GoogleFonts.patrickHand(fontSize: 30),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const Image(image: AssetImage('assets/error.webp')),
+          const SizedBox(height: 16),
+          Button(
+            child: Text(context.l10n.tryAgain),
+            onPressed: () => context.read<PostsCubit>().fetchPosts(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PostsView extends StatelessWidget {
+  const _PostsView(this.posts);
 
   final List<Post> posts;
 
@@ -53,34 +70,87 @@ class _PostsList extends StatelessWidget {
       builder: (context, state) {
         return Stack(
           children: [
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: posts.length,
-              padding: const EdgeInsets.symmetric(vertical: 16).copyWith(
-                bottom: 80,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      context.l10n.checkPosts,
+                      style: GoogleFonts.patrickHand(fontSize: 30),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const Image(image: AssetImage('assets/cover.webp')),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: posts.length,
+                    padding: const EdgeInsets.symmetric(vertical: 16).copyWith(
+                      bottom: state.whenOrNull(
+                            authenticated: (authenticated) => 80,
+                          ) ??
+                          16,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0).copyWith(bottom: 4),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                blurRadius: 16,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Icon(
+                                      Icons.person,
+                                      color: Colors.grey,
+                                    ),
+                                    Text('${posts[index].userId}'),
+                                  ],
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        posts[index].title,
+                                        style: const TextStyle().copyWith(
+                                            fontWeight: FontWeight.bold,),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        posts[index].body,
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+
+                  ),
+                ],
               ),
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(posts[index].title),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Text(posts[index].body),
-                  ),
-                  leading: Column(
-                    children: [
-                      const Icon(Icons.person),
-                      Text('${posts[index].userId}'),
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Divider(),
-                );
-              },
             ),
             state.whenOrNull(
                   authenticated: (authenticated) => Positioned(

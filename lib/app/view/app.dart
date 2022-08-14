@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:showcase_app/feature/main/presentation/cubit/navigation_cubit.dart';
 import 'package:showcase_app/feature/main/presentation/screen/main_screen.dart';
 import 'package:showcase_app/feature/profile/domain/use_case/check_authenticated_user_use_case.dart';
@@ -28,6 +29,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF13B9FF),
         ),
+        textTheme: GoogleFonts.montserratTextTheme(),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

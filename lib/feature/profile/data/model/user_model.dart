@@ -6,8 +6,8 @@ part 'user_model.g.dart';
 class UserModel {
   const UserModel({
     required this.email,
-    required this.id,
     required this.name,
+    this.id = '123',
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
