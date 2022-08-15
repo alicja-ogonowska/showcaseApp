@@ -84,3 +84,6 @@ build/
 
 # Fvm
 .fvm/flutter_sdk
+
+# dotenv
+*.env

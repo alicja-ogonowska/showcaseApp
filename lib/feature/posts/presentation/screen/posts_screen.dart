@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:showcase_app/common/presentation/widget/button.dart';
 import 'package:showcase_app/feature/posts/domain/entity/post.dart';
 import 'package:showcase_app/feature/posts/presentation/cubit/posts_cubit.dart';
+import 'package:showcase_app/feature/posts/presentation/screen/add_post_screen.dart';
 import 'package:showcase_app/feature/posts/presentation/widget/add_posts_button.dart';
-import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
+import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 
 class PostsScreen extends StatelessWidget {
@@ -114,23 +115,26 @@ class _PostsView extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  children: [
-                                    const Icon(
-                                      Icons.person,
-                                      color: Colors.grey,
-                                    ),
-                                    Text('${posts[index].userId}'),
-                                  ],
+                                SizedBox(width:40,
+                                  child: Column(
+                                    children: [
+                                      const Icon(
+                                        Icons.person,
+                                        color: Colors.grey,
+                                      ),
+                                      Text('${posts[index].userId}'),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(width: 16),
                                 Expanded(
-                                  child: Column(
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         posts[index].title,
                                         style: const TextStyle().copyWith(
-                                            fontWeight: FontWeight.bold,),
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
@@ -147,7 +151,6 @@ class _PostsView extends StatelessWidget {
                         ),
                       );
                     },
-
                   ),
                 ],
               ),
@@ -156,7 +159,9 @@ class _PostsView extends StatelessWidget {
                   authenticated: (authenticated) => Positioned(
                     right: 20,
                     bottom: 20,
-                    child: AddPostsButton(onClick: _openAddNewPostScreen),
+                    child: AddPostsButton(
+                      onClick: () => _openAddNewPostScreen(context),
+                    ),
                   ),
                 ) ??
                 const SizedBox.shrink()
@@ -166,5 +171,10 @@ class _PostsView extends StatelessWidget {
     );
   }
 
-  void _openAddNewPostScreen() {}
+  void _openAddNewPostScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddPostScreen()),
+    );
+  }
 }

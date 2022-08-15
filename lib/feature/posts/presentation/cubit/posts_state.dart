@@ -8,5 +8,5 @@ class PostsState with _$PostsState {
 
   const factory PostsState.loaded(List<Post> posts) = PostsLoadedState;
 
-  const factory PostsState.failure(Failure failure) = PostsStateFailedState;
+  const factory PostsState.failure(Failure failure) = PostsFailedState;
 }

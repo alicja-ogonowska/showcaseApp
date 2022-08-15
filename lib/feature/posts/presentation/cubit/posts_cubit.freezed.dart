@@ -46,7 +46,7 @@ mixin _$PostsState {
     required TResult Function(PostsInitialState value) initial,
     required TResult Function(PostsLoadingState value) loading,
     required TResult Function(PostsLoadedState value) loaded,
-    required TResult Function(PostsStateFailedState value) failure,
+    required TResult Function(PostsFailedState value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +54,7 @@ mixin _$PostsState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,7 +62,7 @@ mixin _$PostsState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,7 +165,7 @@ class _$PostsInitialState implements PostsInitialState {
     required TResult Function(PostsInitialState value) initial,
     required TResult Function(PostsLoadingState value) loading,
     required TResult Function(PostsLoadedState value) loaded,
-    required TResult Function(PostsStateFailedState value) failure,
+    required TResult Function(PostsFailedState value) failure,
   }) {
     return initial(this);
   }
@@ -176,7 +176,7 @@ class _$PostsInitialState implements PostsInitialState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
   }) {
     return initial?.call(this);
   }
@@ -187,7 +187,7 @@ class _$PostsInitialState implements PostsInitialState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -282,7 +282,7 @@ class _$PostsLoadingState implements PostsLoadingState {
     required TResult Function(PostsInitialState value) initial,
     required TResult Function(PostsLoadingState value) loading,
     required TResult Function(PostsLoadedState value) loaded,
-    required TResult Function(PostsStateFailedState value) failure,
+    required TResult Function(PostsFailedState value) failure,
   }) {
     return loading(this);
   }
@@ -293,7 +293,7 @@ class _$PostsLoadingState implements PostsLoadingState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
   }) {
     return loading?.call(this);
   }
@@ -304,7 +304,7 @@ class _$PostsLoadingState implements PostsLoadingState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -427,7 +427,7 @@ class _$PostsLoadedState implements PostsLoadedState {
     required TResult Function(PostsInitialState value) initial,
     required TResult Function(PostsLoadingState value) loading,
     required TResult Function(PostsLoadedState value) loaded,
-    required TResult Function(PostsStateFailedState value) failure,
+    required TResult Function(PostsFailedState value) failure,
   }) {
     return loaded(this);
   }
@@ -438,7 +438,7 @@ class _$PostsLoadedState implements PostsLoadedState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
   }) {
     return loaded?.call(this);
   }
@@ -449,7 +449,7 @@ class _$PostsLoadedState implements PostsLoadedState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -469,31 +469,31 @@ abstract class PostsLoadedState implements PostsState {
 }
 
 /// @nodoc
-abstract class _$$PostsStateFailedStateCopyWith<$Res> {
-  factory _$$PostsStateFailedStateCopyWith(_$PostsStateFailedState value,
-          $Res Function(_$PostsStateFailedState) then) =
-      __$$PostsStateFailedStateCopyWithImpl<$Res>;
+abstract class _$$PostsFailedStateCopyWith<$Res> {
+  factory _$$PostsFailedStateCopyWith(
+          _$PostsFailedState value, $Res Function(_$PostsFailedState) then) =
+      __$$PostsFailedStateCopyWithImpl<$Res>;
   $Res call({Failure failure});
 
   $FailureCopyWith<$Res> get failure;
 }
 
 /// @nodoc
-class __$$PostsStateFailedStateCopyWithImpl<$Res>
+class __$$PostsFailedStateCopyWithImpl<$Res>
     extends _$PostsStateCopyWithImpl<$Res>
-    implements _$$PostsStateFailedStateCopyWith<$Res> {
-  __$$PostsStateFailedStateCopyWithImpl(_$PostsStateFailedState _value,
-      $Res Function(_$PostsStateFailedState) _then)
-      : super(_value, (v) => _then(v as _$PostsStateFailedState));
+    implements _$$PostsFailedStateCopyWith<$Res> {
+  __$$PostsFailedStateCopyWithImpl(
+      _$PostsFailedState _value, $Res Function(_$PostsFailedState) _then)
+      : super(_value, (v) => _then(v as _$PostsFailedState));
 
   @override
-  _$PostsStateFailedState get _value => super._value as _$PostsStateFailedState;
+  _$PostsFailedState get _value => super._value as _$PostsFailedState;
 
   @override
   $Res call({
     Object? failure = freezed,
   }) {
-    return _then(_$PostsStateFailedState(
+    return _then(_$PostsFailedState(
       failure == freezed
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -511,8 +511,8 @@ class __$$PostsStateFailedStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PostsStateFailedState implements PostsStateFailedState {
-  const _$PostsStateFailedState(this.failure);
+class _$PostsFailedState implements PostsFailedState {
+  const _$PostsFailedState(this.failure);
 
   @override
   final Failure failure;
@@ -526,7 +526,7 @@ class _$PostsStateFailedState implements PostsStateFailedState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PostsStateFailedState &&
+            other is _$PostsFailedState &&
             const DeepCollectionEquality().equals(other.failure, failure));
   }
 
@@ -536,9 +536,8 @@ class _$PostsStateFailedState implements PostsStateFailedState {
 
   @JsonKey(ignore: true)
   @override
-  _$$PostsStateFailedStateCopyWith<_$PostsStateFailedState> get copyWith =>
-      __$$PostsStateFailedStateCopyWithImpl<_$PostsStateFailedState>(
-          this, _$identity);
+  _$$PostsFailedStateCopyWith<_$PostsFailedState> get copyWith =>
+      __$$PostsFailedStateCopyWithImpl<_$PostsFailedState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -583,7 +582,7 @@ class _$PostsStateFailedState implements PostsStateFailedState {
     required TResult Function(PostsInitialState value) initial,
     required TResult Function(PostsLoadingState value) loading,
     required TResult Function(PostsLoadedState value) loaded,
-    required TResult Function(PostsStateFailedState value) failure,
+    required TResult Function(PostsFailedState value) failure,
   }) {
     return failure(this);
   }
@@ -594,7 +593,7 @@ class _$PostsStateFailedState implements PostsStateFailedState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -605,7 +604,7 @@ class _$PostsStateFailedState implements PostsStateFailedState {
     TResult Function(PostsInitialState value)? initial,
     TResult Function(PostsLoadingState value)? loading,
     TResult Function(PostsLoadedState value)? loaded,
-    TResult Function(PostsStateFailedState value)? failure,
+    TResult Function(PostsFailedState value)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -615,12 +614,11 @@ class _$PostsStateFailedState implements PostsStateFailedState {
   }
 }
 
-abstract class PostsStateFailedState implements PostsState {
-  const factory PostsStateFailedState(final Failure failure) =
-      _$PostsStateFailedState;
+abstract class PostsFailedState implements PostsState {
+  const factory PostsFailedState(final Failure failure) = _$PostsFailedState;
 
   Failure get failure;
   @JsonKey(ignore: true)
-  _$$PostsStateFailedStateCopyWith<_$PostsStateFailedState> get copyWith =>
+  _$$PostsFailedStateCopyWith<_$PostsFailedState> get copyWith =>
       throw _privateConstructorUsedError;
 }

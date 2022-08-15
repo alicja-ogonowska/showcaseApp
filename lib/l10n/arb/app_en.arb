@@ -23,5 +23,17 @@
   },
   "wrongEmailFormat": "Please provide valid e-mail address.",
   "somethingWentWrong": "Oops, something went wrong!",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "addNewPostTitle": "Tell us what is on your mind!",
+  "title": "Title",
+  "content": "Content",
+  "submit": "Submit",
+  "postWasAdded": "Your post was added!",
+  "cantBeEmpty": "It can't be empty.",
+  "contentTooLong": "Your post can't be longer than 500 characters. Currently it has {char} characters.",
+  "@contentTooLong": {
+    "placeholders": {
+      "char": {}
+    }
+  }
 }

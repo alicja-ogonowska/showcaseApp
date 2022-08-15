@@ -38,4 +38,18 @@ class PostsRepositoryImpl implements PostsRepository {
       return Result.failure(Failure(e, s));
     }
   }
+
+  @override
+  Future<Result<bool>> addPost(String title, String body) async {
+    try {
+      final postAdded = await _dataSource.addPost(title, body);
+
+      return postAdded
+          ? const Result(true)
+          : const Result.failure(Failure('Adding new post has failed'));
+    } catch (e, s) {
+      _logger.e('Adding new post has failed', e, s);
+      return Result.failure(Failure(e, s));
+    }
+  }
 }

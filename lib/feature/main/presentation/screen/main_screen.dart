@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen>
         child: Scaffold(
           body: Center(
             child: BlocListener<NavigationCubit, NavigationState>(
-              // bloc: inject<NavigationCubit>(),
+              // cubit: inject<NavigationCubit>(),
               listener: (context, state) {
                 setState(() {
                   _tabSelectedIndex = state.index;

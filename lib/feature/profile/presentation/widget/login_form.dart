@@ -2,8 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showcase_app/common/presentation/widget/button.dart';
-import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
-import 'package:showcase_app/feature/profile/presentation/widget/form_text_field.dart';
+import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
+import 'package:showcase_app/common/presentation/widget/form_text_field.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 
 class LoginForm extends StatefulWidget {
@@ -52,6 +52,7 @@ class _LoginFormState extends State<LoginForm> {
               title: context.l10n.email,
               controller: _emailController,
               focusNode: _emailFocusNode,
+              maxLines: 1,
               nextFocusNode: _passwordFocusNode,
               validator: (String? email) => email != null
                   ? (EmailValidator.validate(email)
@@ -64,6 +65,7 @@ class _LoginFormState extends State<LoginForm> {
               textInputType: TextInputType.visiblePassword,
               isObscured: isObscured,
               title: context.l10n.password,
+              maxLines: 1,
               controller: _passwordController,
               textInputAction: TextInputAction.done,
               onSubmitted: (_) => _submitLogin(),

@@ -10,6 +10,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:showcase_app/injection/injection.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -31,6 +32,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await configureDependencies();
   await runZonedGuarded(
     () async {

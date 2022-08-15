@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:showcase_app/common/presentation/widget/button.dart';
 import 'package:showcase_app/feature/profile/domain/entity/user.dart';
-import 'package:showcase_app/feature/profile/presentation/bloc/user_cubit.dart';
+import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
 import 'package:showcase_app/feature/profile/presentation/widget/login_form.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 

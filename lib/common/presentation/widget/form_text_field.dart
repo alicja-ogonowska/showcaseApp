@@ -16,6 +16,7 @@ class FormTextField extends StatefulWidget {
     this.isObscured = false,
     this.suffix,
     this.error,
+    this.maxLines,
   });
 
   final TextEditingController controller;
@@ -29,6 +30,7 @@ class FormTextField extends StatefulWidget {
   final bool isObscured;
   final Widget? suffix;
   final String? error;
+  final int? maxLines;
 
   @override
   _FormTextFieldState createState() => _FormTextFieldState();
@@ -62,6 +64,7 @@ class _FormTextFieldState extends State<FormTextField> {
             widget.nextFocusNode?.requestFocus();
             widget.onSubmitted?.call(value);
           },
+          maxLines: widget.maxLines,
           decoration: InputDecoration(
             suffix: widget.suffix ?? const SizedBox.shrink(),
             errorMaxLines: 4,
