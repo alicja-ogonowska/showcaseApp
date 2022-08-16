@@ -20,6 +20,7 @@ import 'package:showcase_app/injection/injection.dart';
 
 import 'mocks/app_http_client_mock.dart';
 import 'mocks/logger_mock.dart';
+import 'mocks/mock_server_responses_manager.dart';
 
 Future<Widget> getMainScreenWidget(
   WidgetTester tester, {
@@ -33,6 +34,7 @@ Future<Widget> getMainScreenWidget(
 Future<void> _configureTestDependencies() async {
   SharedPreferences.setMockInitialValues({});
   await getIt.reset();
+  MockServerResponsesManager().clearAll();
 
   //common
   getIt.registerSingleton<AppHttpClient>(AppHttpClientMock());
@@ -44,7 +46,7 @@ Future<void> _configureTestDependencies() async {
     PostsRestDataSource(
       userId: 123,
       apiKey: 'api_key',
-      url: 'testUrl',
+      url: ApiService.postsDataSource.toString(),
       appHttpClient: getIt(),
     ),
   );
