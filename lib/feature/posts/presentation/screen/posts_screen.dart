@@ -115,7 +115,8 @@ class _PostsView extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(width:40,
+                                SizedBox(
+                                  width: 40,
                                   child: Column(
                                     children: [
                                       const Icon(
@@ -128,7 +129,9 @@ class _PostsView extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 16),
                                 Expanded(
-                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         posts[index].title,

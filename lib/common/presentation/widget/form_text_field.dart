@@ -69,6 +69,7 @@ class _FormTextFieldState extends State<FormTextField> {
             suffix: widget.suffix ?? const SizedBox.shrink(),
             errorMaxLines: 4,
             errorText: widget.error,
+            hintText: widget.title,
             enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(2),

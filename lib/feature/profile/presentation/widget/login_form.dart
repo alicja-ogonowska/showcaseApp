@@ -2,8 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showcase_app/common/presentation/widget/button.dart';
-import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
 import 'package:showcase_app/common/presentation/widget/form_text_field.dart';
+import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 
 class LoginForm extends StatefulWidget {

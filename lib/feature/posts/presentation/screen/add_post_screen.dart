@@ -63,8 +63,10 @@ class _AddNewPostView extends StatelessWidget {
                     context.read<AddPostCubit>().addPost(title, content);
                   },
                 ),
-                const Image(image: AssetImage('assets/talking.webp'), height:
-                130,),
+                const Image(
+                  image: AssetImage('assets/talking.webp'),
+                  height: 130,
+                ),
               ],
             ),
           ),

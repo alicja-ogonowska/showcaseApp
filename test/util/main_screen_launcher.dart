@@ -8,6 +8,7 @@ import 'package:showcase_app/feature/posts/data/repository/posts_repository_impl
 import 'package:showcase_app/feature/posts/data/source/posts_data_source.dart';
 import 'package:showcase_app/feature/posts/data/source/posts_rest_data_source.dart';
 import 'package:showcase_app/feature/posts/domain/repository/posts_repository.dart';
+import 'package:showcase_app/feature/posts/domain/use_case/add_post_use_case.dart';
 import 'package:showcase_app/feature/posts/domain/use_case/get_posts_use_case.dart';
 import 'package:showcase_app/feature/profile/data/repository/user_repository_impl.dart';
 import 'package:showcase_app/feature/profile/data/source/user_data_source.dart';
@@ -22,17 +23,22 @@ import 'mocks/app_http_client_mock.dart';
 import 'mocks/logger_mock.dart';
 import 'mocks/mock_server_responses_manager.dart';
 
+const Size screenSize = Size(375, 812);
+
 Future<Widget> getMainScreenWidget(
   WidgetTester tester, {
   bool loggedIn = false,
 }) async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  await _configureTestDependencies();
+  await _configureTestDependencies(loggedIn: loggedIn);
+  await tester.binding.setSurfaceSize(screenSize);
   return const App();
 }
 
-Future<void> _configureTestDependencies() async {
-  SharedPreferences.setMockInitialValues({});
+Future<void> _configureTestDependencies({required bool loggedIn}) async {
+  SharedPreferences.setMockInitialValues(
+    loggedIn ? {'userKey': 'user@test.com'} : {},
+  );
   await getIt.reset();
   MockServerResponsesManager().clearAll();
 
@@ -55,6 +61,9 @@ Future<void> _configureTestDependencies() async {
   );
   getIt.registerSingleton<GetPostsUseCase>(
     GetPostsUseCase(repository: getIt()),
+  );
+  getIt.registerSingleton<AddPostUseCase>(
+    AddPostUseCase(repository: getIt()),
   );
 
   //user
@@ -94,6 +103,19 @@ Future<void> selectTab(WidgetTester tester, TabName tab) async {
 
 Future<void> waitForAnimation(WidgetTester tester) async {
   return tester.pump(const Duration(milliseconds: 500));
+}
+
+Future<void> waitForAnimations(
+  WidgetTester tester, {
+  int count = 2,
+}) async {
+  for (var i = 0; i < count; i++) {
+    await waitForAnimation(tester);
+  }
+}
+
+Future<void> waitForFlashbarToClose(WidgetTester tester) async {
+  await tester.pumpAndSettle(const Duration(seconds: 3));
 }
 
 enum TabName { posts, profile }

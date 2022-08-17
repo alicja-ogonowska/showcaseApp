@@ -6,17 +6,15 @@ import 'package:showcase_app/feature/posts/presentation/cubit/add_post/add_post_
 import 'package:showcase_app/l10n/l10n.dart';
 
 class AddPostForm extends StatefulWidget {
-  const AddPostForm
-
-  ({super.key, required this.onSubmit});
+  const AddPostForm({super.key, required this.onSubmit});
 
   @override
   _AddPostFormState createState() => _AddPostFormState();
 
   final Function(
-      String title,
-      String content,
-      ) onSubmit;
+    String title,
+    String content,
+  ) onSubmit;
 }
 
 class _AddPostFormState extends State<AddPostForm> {
@@ -50,7 +48,7 @@ class _AddPostFormState extends State<AddPostForm> {
               focusNode: _titleFocusNode,
               nextFocusNode: _contentFocusNode,
               validator: (String? title) =>
-              (title?.isNotEmpty ?? true) ? null :context.l10n.cantBeEmpty,
+                  (title?.isNotEmpty ?? true) ? null : context.l10n.cantBeEmpty,
             ),
             const SizedBox(height: 16),
             FormTextField(
@@ -67,21 +65,18 @@ class _AddPostFormState extends State<AddPostForm> {
                 } else if (content.isEmpty) {
                   return context.l10n.cantBeEmpty;
                 } else {
-                  return context.l10n
-                      .contentTooLong(content.length);
+                  return context.l10n.contentTooLong(content.length);
                 }
               },
             ),
             const SizedBox(height: 32),
             BlocBuilder<AddPostCubit, AddPostState>(
-              builder: (context, state) =>
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Button(
-                      onPressed: _submitNewPost,
-                      child: state.whenOrNull(
-                        loading: () =>
-                        const SizedBox(
+              builder: (context, state) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Button(
+                  onPressed: _submitNewPost,
+                  child: state.whenOrNull(
+                        loading: () => const SizedBox(
                           width: 16,
                           height: 16,
                           child: CircularProgressIndicator(
@@ -90,9 +85,9 @@ class _AddPostFormState extends State<AddPostForm> {
                           ),
                         ),
                       ) ??
-                          Text(context.l10n.submit),
-                    ),
-                  ),
+                      Text(context.l10n.submit),
+                ),
+              ),
             ),
           ],
         ),

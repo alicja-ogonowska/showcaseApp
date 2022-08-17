@@ -87,7 +87,7 @@ class MockServerResponsesManager {
       final response = Response(
         data: await _createBodyFromMockServerResponse(
           mockServerResponse,
-        ) as T,
+        ) as T?,
         statusCode: mockServerResponse.type.getCode(),
         requestOptions: RequestOptions(
           path: apiCall.toString(),
@@ -102,11 +102,12 @@ class MockServerResponsesManager {
         response.data = json.decode(response.data.toString()) as T;
       }
 
-      if (mockServerResponse.type == MockServerResponseType.code_200) {
+      if (mockServerResponse.type == MockServerResponseType.code_200 ||
+          mockServerResponse.type == MockServerResponseType.code_201) {
         return response;
       }
 
-      // If response type is not 200, an error should be thrown.
+      // If response type is not 200 or 201, an error should be thrown.
       throw DioError(
         requestOptions: RequestOptions(path: 'https://local.host'),
         response: response,
@@ -207,6 +208,7 @@ ApiService? getApiServiceFromUrl(Uri url) {
 
 enum MockServerResponseType {
   code_200,
+  code_201,
   code_400,
   code_401,
   code_403,
@@ -223,6 +225,8 @@ extension on MockServerResponseType {
     switch (this) {
       case MockServerResponseType.code_200:
         return 200;
+      case MockServerResponseType.code_201:
+        return 201;
       case MockServerResponseType.code_400:
         return 400;
       case MockServerResponseType.code_401:
