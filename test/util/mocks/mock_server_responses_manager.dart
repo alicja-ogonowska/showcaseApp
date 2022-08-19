@@ -119,7 +119,8 @@ class MockServerResponsesManager {
   Future<dynamic> _createBodyFromMockServerResponse(
     MockServerResponse mockServerResponse,
   ) async {
-    if (mockServerResponse.errorCode == null) {
+    if (mockServerResponse.type.getCode() == 200 ||
+        mockServerResponse.type.getCode() == 201) {
       return json.decode(
         await readJsonFromFile(mockServerResponse.responseJsonFilePath),
       );
@@ -127,7 +128,7 @@ class MockServerResponsesManager {
       return {
         'errors': [
           {
-            'code': '${mockServerResponse.errorCode}',
+            'code': '${mockServerResponse.type.getCode()}',
             'message': '${mockServerResponse.errorMessage}',
           }
         ],
@@ -138,13 +139,11 @@ class MockServerResponsesManager {
   void mockServerResponse(
     ApiCall apiCall,
     MockServerResponseType mockResponseType, {
-    String? errorCode,
     String? errorMessage,
     String? responseJsonFilePath,
   }) {
     _mockResponses[apiCall] = MockServerResponse(
       type: mockResponseType,
-      errorCode: errorCode,
       errorMessage: errorMessage,
       responseJsonFilePath: responseJsonFilePath,
     );
@@ -211,11 +210,8 @@ enum MockServerResponseType {
   code_201,
   code_400,
   code_401,
-  code_403,
   code_404,
-  code_406,
   code_500,
-  code_503,
   timeout
 }
 
@@ -231,18 +227,13 @@ extension on MockServerResponseType {
         return 400;
       case MockServerResponseType.code_401:
         return 401;
-      case MockServerResponseType.code_403:
-        return 403;
       case MockServerResponseType.code_404:
         return 404;
-      case MockServerResponseType.code_406:
-        return 406;
       case MockServerResponseType.code_500:
         return 500;
       case MockServerResponseType.timeout:
         return 408;
-      case MockServerResponseType.code_503:
-        return 503;
+
     }
   }
 }

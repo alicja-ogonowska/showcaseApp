@@ -7,6 +7,14 @@ import '../../../../util/mocks/mock_server_responses_manager.dart';
 import '../../../../util/test_actions.dart';
 
 void main() {
+  testWidgets('should display error message when request fails',
+      (tester) async {
+    final Widget widget = await getMainScreenWidget(tester);
+
+    await launchTab(tester, widget, TabName.posts);
+
+    findTextWidget('Oops, something went wrong!').once();
+  });
   group('Posts screen', () {
     testWidgets('should display title', (tester) async {
       final Widget widget = await getMainScreenWidget(tester);
