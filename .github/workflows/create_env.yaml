@@ -16,3 +16,5 @@ jobs:
           envkey_USER_ID: ${{ secrets.API_KEY }}
           file_name: .env
           fail_on_empty: false
+      - name: See file
+        run: sudo chown -R $(id -u):$(id -g) .env
