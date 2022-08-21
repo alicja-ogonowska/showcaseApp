@@ -10,10 +10,9 @@ jobs:
 
     steps:
       - name: Make envfile
-        uses: actually-colab/github-action-create-env-file@v2.3
+        uses: SpicyPizza/create-envfile@master
         with:
           envkey_API_KEY: ${{ secrets.USER_ID }}
           envkey_USER_ID: ${{ secrets.API_KEY }}
           file_name: .env
           fail_on_empty: false
-          directory: ./
