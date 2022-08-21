@@ -1,6 +1,6 @@
 name: Create envfile
 
-on: [push]
+on: [ push ]
 
 jobs:
 
@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
+        uses: actually-colab/github-action-create-env-file@v2.3
         with:
           envkey_API_KEY: ${{ secrets.USER_ID }}
           envkey_USER_ID: ${{ secrets.API_KEY }}
