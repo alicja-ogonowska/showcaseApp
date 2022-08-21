@@ -41,13 +41,11 @@ class MockServerResponsesManager {
           return _createMockResponseForApiCall(
             ApiCall.getPosts,
             requestBody,
-            url,
           );
         } else if (apiCallProtocol == ApiCallProtocol.POST) {
           return _createMockResponseForApiCall(
             ApiCall.addPost,
             requestBody,
-            url,
           );
         }
         break;
@@ -60,7 +58,6 @@ class MockServerResponsesManager {
   Future<Response<T>> _createMockResponseForApiCall<T>(
     ApiCall apiCall,
     Object? requestBody,
-    Uri url,
   ) {
     if (_mockResponses.containsKey(apiCall)) {
       final mockServerResponse = _mockResponses[apiCall]!;
@@ -109,7 +106,7 @@ class MockServerResponsesManager {
 
       // If response type is not 200 or 201, an error should be thrown.
       throw DioError(
-        requestOptions: RequestOptions(path: 'https://local.host'),
+        requestOptions: RequestOptions(path: apiCall.toString()),
         response: response,
       );
     }
@@ -233,7 +230,6 @@ extension on MockServerResponseType {
         return 500;
       case MockServerResponseType.timeout:
         return 408;
-
     }
   }
 }

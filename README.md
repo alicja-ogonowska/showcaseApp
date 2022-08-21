@@ -31,8 +31,20 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*Showcase App works on iOS, Android, Web, and Windows._
+Application uses [GO Rest Api][go_rest_api_link]. To be able to use POST methods, you need to
+obtain your own access token. You can do it via Github, Google or Microsoft account on [this
+page][go_rest_login_link].
 
+Api key and user id (you must use an id that already exists in the backend service. You can
+create a new user, for example from Postman, or you can use an existing one. Doesn't really matter.)
+are stored in an environment config file and loaded via dotenv.
+
+You need to create .env file in the root of this project. It should have the following format:
+
+```sh
+API_KEY={apiKey}
+USER_ID={userId}
+```
 ---
 
 ## Running Tests 🧪
@@ -53,7 +65,21 @@ $ genhtml coverage/lcov.info -o coverage/
 $ open coverage/index.html
 ```
 
+
+To run widget tests on your device, use this command:
+```sh
+flutter run --flavor flavor -t testFilePath/fileName.dart
+
+# Example
+flutter run --flavor development -t test/feature/profile/presentation/screen/profile_screen_test.dart
+```
+
+To run health check tests, use this command:
+```sh
+TODO
+```
 ---
+
 
 ## Working with Translations 🌐
 
@@ -162,3 +188,5 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
+[go_rest_api_link]: https://gorest.co.in
+[go_rest_login_link]: https://gorest.co.in/consumer/login

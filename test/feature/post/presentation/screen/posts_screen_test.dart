@@ -18,6 +18,7 @@ void main() {
   group('Posts screen', () {
     testWidgets('should display title', (tester) async {
       final Widget widget = await getMainScreenWidget(tester);
+
       MockServerResponsesManager().mockServerResponse(
         ApiCall.getPosts,
         MockServerResponseType.code_200,
@@ -30,8 +31,8 @@ void main() {
     });
 
     testWidgets(
-        'should display error message when request fails and post '
-        'lists after successful retry', (tester) async {
+        'should display error message when request fails and then posts '
+        'list after successful retry', (tester) async {
       final Widget widget = await getMainScreenWidget(tester);
 
       await launchTab(tester, widget, TabName.posts);

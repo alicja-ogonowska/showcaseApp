@@ -29,7 +29,7 @@ Finder findFormFieldByHintAndIsObscured(
 
 Finder findFormFieldTitleWidget(String str) => find.byWidgetPredicate(
       (widget) => widget is RichText && widget.text.toPlainText() == str,
-);
+    );
 
 Finder findFormFieldByTitle(String str) {
   final Finder titleTextFinder = findFormFieldTitleWidget(str);
@@ -42,17 +42,33 @@ Finder findFormFieldByTitle(String str) {
 }
 
 Future<void> enterText(
-  WidgetTester tester,
-  Finder formField,
-  String text
-
-) async {
+    WidgetTester tester, Finder formField, String text) async {
   await tester.enterText(formField, text);
   await tester.pump();
 }
 
 Future<void> tap(WidgetTester tester, Finder finder) async {
   await tester.tap(finder);
+  await tester.pump();
+}
+
+Future<void> scrollDownToView(WidgetTester tester, Finder finder) async {
+  await _dragUntilVisible(tester, finder, const Offset(0, -20));
+}
+
+Future<void> _dragUntilVisible(
+  WidgetTester tester,
+  Finder finder,
+  Offset offset,
+) async {
+  await tester.dragUntilVisible(
+    finder,
+    find.ancestor(
+      of: finder,
+      matching: find.byWidgetPredicate((widget) => widget is Scrollable),
+    ),
+    offset,
+  );
   await tester.pump();
 }
 
