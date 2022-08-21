@@ -42,6 +42,9 @@ You need to create .env file in the root of this project. It should have the fol
 API_KEY={apiKey}
 USER_ID={userId}
 ```
+
+To be able to make builds via GitHub, you need to add API_KEY and USER_ID as secrets to your
+repository.
 ---
 
 ## Running Tests 🧪

@@ -1,16 +1,18 @@
 name: Create envfile
 
-on: [pull_request, push]
+on: [push]
 
 jobs:
 
   create-envfile:
-    runs-on: ubuntu-18.04
+
+    runs-on: ubuntu-latest
 
     steps:
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
+        uses: SpicyPizza/create-envfile@v1.3
         with:
           envkey_API_KEY: ${{ secrets.USER_ID }}
           envkey_USER_ID: ${{ secrets.API_KEY }}
           file_name: .env
+          fail_on_empty: false
