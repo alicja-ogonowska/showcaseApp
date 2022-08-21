@@ -42,7 +42,10 @@ Finder findFormFieldByTitle(String str) {
 }
 
 Future<void> enterText(
-    WidgetTester tester, Finder formField, String text) async {
+  WidgetTester tester,
+  Finder formField,
+  String text,
+) async {
   await tester.enterText(formField, text);
   await tester.pump();
 }
