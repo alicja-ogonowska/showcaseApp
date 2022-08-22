@@ -10,8 +10,9 @@ jobs:
     steps:
       - name: Create env file
         run: |
-          ls -a
+          cd "$PROJECT_PATH"
           touch .env
           echo USER_ID=${{ secrets.USER_ID }} >> .env
           echo API_KEY=${{ secrets.API_KEY }} >> .env
           cat .env
+          ls -a
