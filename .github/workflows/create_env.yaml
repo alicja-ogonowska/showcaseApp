@@ -11,6 +11,7 @@ jobs:
       - name: Create env file
         run: |
           cd "$PROJECT_PATH"
+          ls -a
           touch .env
           echo USER_ID=${{ secrets.USER_ID }} >> .env
           echo API_KEY=${{ secrets.API_KEY }} >> .env
