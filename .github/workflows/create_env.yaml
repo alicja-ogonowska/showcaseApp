@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Create env file
-        run:
+        run: |
           ls -a
           touch .env
           echo USER_ID=${{ secrets.USER_ID }} >> .env
