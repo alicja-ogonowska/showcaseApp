@@ -5,17 +5,12 @@ on: [ push ]
 jobs:
 
   create-envfile:
-
     runs-on: ubuntu-latest
 
     steps:
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.2
-        with:
-          envkey_API_KEY: ${{ secrets.USER_ID }}
-          envkey_USER_ID: ${{ secrets.API_KEY }}
-          file_name: .env
-          fail_on_empty: false
-          directory: .
-      - name: See file
-        run: sudo chown -R $(id -u):$(id -g) .env
+      - name: Create env file
+        run:
+          touch .env
+          echo USER_ID=${{ secrets.USER_ID }} >> .env
+          echo API_KEY=${{ secrets.API_KEY }} >> .env
+          cat .env
