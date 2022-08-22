@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    uses: alicja-ogonowska/very_good_workflows/tree/main/.github/workflows/flutter_package.yml@main
+    uses: alicja-ogonowska/very_good_workflows/tree/main/.github/workflows/flutter_package.yml
     with:
       flutter_channel: stable
       flutter_version: 3.0.4
