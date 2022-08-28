@@ -31,7 +31,7 @@ void main() {
 
       findTextWidget('Oops, something went wrong!').once();
 
-     await waitForFlashbarToClose(tester);
+      await waitForFlashbarToClose(tester);
     });
     testWidgets('should display validation errors when validation fails',
         (tester) async {

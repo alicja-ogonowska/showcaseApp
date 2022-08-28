@@ -88,7 +88,6 @@ T logBlocEvents<T>(T Function() body) => BlocOverrides.runZoned<T>(
       blocObserver: AppBlocObserver(),
     );
 
-
 extension FinderMatchExtension on Finder {
   void never() => expect(this, findsNothing);
 
