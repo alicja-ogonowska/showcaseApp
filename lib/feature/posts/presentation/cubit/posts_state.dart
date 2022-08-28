@@ -7,7 +7,7 @@ class PostsState with _$PostsState {
   const factory PostsState.loading() = PostsLoadingState;
 
   const factory PostsState.loaded(List<Post> posts, Post? postOfTheDay) =
-  PostsLoadedState;
+      PostsLoadedState;
 
   const factory PostsState.failure(Failure failure) = PostsFailedState;
 }
