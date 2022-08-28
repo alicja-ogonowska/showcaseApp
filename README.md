@@ -9,23 +9,13 @@ Images designed by: [pch.vector / Freepik][vector_images_link]
 
 ## Getting Started 🚀
 
-This project contains 3 flavors:
+This project contains only 1 flavour - development.
 
-- development
-- staging
-- production
-
-To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
+To run the flavor either use the launch configuration in VSCode/Android Studio or use the following command:
 
 ```sh
 # Development
 $ flutter run --flavor development --target lib/main_development.dart
-
-# Staging
-$ flutter run --flavor staging --target lib/main_staging.dart
-
-# Production
-$ flutter run --flavor production --target lib/main_production.dart
 ```
 
 Application uses [GO Rest Api][go_rest_api_link]. To be able to use POST methods, you need to
@@ -36,7 +26,7 @@ Api key and user id (you must use an id that already exists in the backend servi
 create a new user, for example from Postman, or you can use an existing one. Doesn't really matter.)
 are stored in an environment config file and loaded via dotenv.
 
-You need to create .env file in the root of this project. It should have the following format:
+You need to create .env file at the root of this project. It should have the following format:
 
 ```sh
 API_KEY={apiKey}
@@ -44,12 +34,13 @@ USER_ID={userId}
 ```
 
 To be able to make builds via GitHub, you need to add API_KEY and USER_ID as secrets to your
-repository.
+repository. .env file is then created via Github Action.
+
 ---
 
 ## Running Tests 🧪
 
-To run all unit and widget tests use the following command:
+To run all unit and widget tests (full widget tree tests as well) use the following command:
 
 ```sh
 $ flutter test --coverage --test-randomize-ordering-seed random
@@ -76,7 +67,7 @@ flutter run --flavor development -t test/feature/profile/presentation/screen/pro
 
 To run health check tests, use this command:
 ```sh
-TODO
+flutter test health_check_tests
 ```
 ---
 
