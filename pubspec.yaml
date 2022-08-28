@@ -38,6 +38,7 @@ dev_dependencies:
   json_serializable: ^6.3.1
   lint: ^1.5.3
   mocktail: ^0.3.0
+  network_image_mock: ^2.1.1
 
 flutter:
   uses-material-design: true
@@ -46,3 +47,6 @@ flutter:
   assets:
     - assets/
     - .env
+    - assets/google_fonts/
+    - assets/fonts/
+#    - test/util/json/posts/

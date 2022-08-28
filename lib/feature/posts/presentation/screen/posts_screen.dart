@@ -6,6 +6,8 @@ import 'package:showcase_app/feature/posts/domain/entity/post.dart';
 import 'package:showcase_app/feature/posts/presentation/cubit/posts_cubit.dart';
 import 'package:showcase_app/feature/posts/presentation/screen/add_post_screen.dart';
 import 'package:showcase_app/feature/posts/presentation/widget/add_posts_button.dart';
+import 'package:showcase_app/feature/posts/presentation/widget/post_item.dart';
+import 'package:showcase_app/feature/posts/presentation/widget/post_of_the_day.dart';
 import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
 import 'package:showcase_app/l10n/l10n.dart';
 
@@ -23,7 +25,7 @@ class PostsScreen extends StatelessWidget {
             loading: (_) => const Center(
               child: CircularProgressIndicator(),
             ),
-            loaded: (state) => _PostsView(state.posts),
+            loaded: (state) => _PostsView(state.posts, state.postOfTheDay),
             failure: (_) => _ErrorView(),
           );
         },
@@ -61,9 +63,10 @@ class _ErrorView extends StatelessWidget {
 }
 
 class _PostsView extends StatelessWidget {
-  const _PostsView(this.posts);
+  const _PostsView(this.posts, this.postOfTheDay);
 
   final List<Post> posts;
+  final Post? postOfTheDay;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +87,7 @@ class _PostsView extends StatelessWidget {
                     ),
                   ),
                   const Image(image: AssetImage('assets/cover.webp')),
+                  PostOfTheDay(post: postOfTheDay),
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -94,66 +98,8 @@ class _PostsView extends StatelessWidget {
                           ) ??
                           16,
                     ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0).copyWith(bottom: 4),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade300,
-                                blurRadius: 16,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 40,
-                                  child: Column(
-                                    children: [
-                                      const Icon(
-                                        Icons.person,
-                                        color: Colors.grey,
-                                      ),
-                                      Text('${posts[index].userId}'),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        posts[index].title,
-                                        style: const TextStyle().copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        posts[index].body,
-                                        maxLines: 5,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                    itemBuilder: (BuildContext context, int index) =>
+                        PostItem(post: posts[index]),
                   ),
                 ],
               ),

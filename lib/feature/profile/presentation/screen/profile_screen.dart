@@ -53,6 +53,17 @@ class _AuthenticatedUserView extends StatelessWidget {
             onPressed: () => context.read<UserCubit>().logout(),
           ),
         ),
+        Expanded(child: Container()),
+        // Uncomment to check how tests behave with network image
+        // Text(context.l10n.poweredBy),
+        // Padding(
+        //   padding: const EdgeInsets.all(16.0),
+        //   child: Image.network(
+        //     'https://storage.googleapis'
+        //     '.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png',
+        //     width: 100,
+        //   ),
+        // ),
       ],
     );
   }

@@ -32,7 +32,7 @@ class PostsRestDataSource implements PostsDataSource {
         headers: await _createHeaders(),
       ),
     );
-    //todo add this later
+
     if (response.statusCode != 200) throw Exception(response.data);
 
     final results = response.data as List;

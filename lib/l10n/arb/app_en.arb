@@ -35,5 +35,7 @@
     "placeholders": {
       "char": {}
     }
-  }
+  },
+  "poweredBy": "Powered by",
+  "postOfTheDayTitle": "Most popular post today:"
 }

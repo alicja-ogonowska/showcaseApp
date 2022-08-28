@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -25,9 +26,17 @@ class PostsCubit extends Cubit<PostsState> {
 
     emit(
       result.when(
-        PostsState.loaded,
+        (posts) => PostsState.loaded(posts, _getPostOfTheDay(posts)),
         failure: PostsState.failure,
       ),
     );
+  }
+
+  Post? _getPostOfTheDay(List<Post> posts) {
+    if (posts.isEmpty) {
+      return null;
+    }
+    final randomIndex = Random().nextInt(posts.length - 1);
+    return posts[randomIndex];
   }
 }

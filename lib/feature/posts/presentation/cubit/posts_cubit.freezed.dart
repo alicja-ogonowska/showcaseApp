@@ -20,7 +20,7 @@ mixin _$PostsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
+    required TResult Function(List<Post> posts, Post? postOfTheDay) loaded,
     required TResult Function(Failure failure) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$PostsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$PostsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) =>
@@ -127,7 +127,7 @@ class _$PostsInitialState implements PostsInitialState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
+    required TResult Function(List<Post> posts, Post? postOfTheDay) loaded,
     required TResult Function(Failure failure) failure,
   }) {
     return initial();
@@ -138,7 +138,7 @@ class _$PostsInitialState implements PostsInitialState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
   }) {
     return initial?.call();
@@ -149,7 +149,7 @@ class _$PostsInitialState implements PostsInitialState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
@@ -244,7 +244,7 @@ class _$PostsLoadingState implements PostsLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
+    required TResult Function(List<Post> posts, Post? postOfTheDay) loaded,
     required TResult Function(Failure failure) failure,
   }) {
     return loading();
@@ -255,7 +255,7 @@ class _$PostsLoadingState implements PostsLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
   }) {
     return loading?.call();
@@ -266,7 +266,7 @@ class _$PostsLoadingState implements PostsLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
@@ -323,7 +323,7 @@ abstract class _$$PostsLoadedStateCopyWith<$Res> {
   factory _$$PostsLoadedStateCopyWith(
           _$PostsLoadedState value, $Res Function(_$PostsLoadedState) then) =
       __$$PostsLoadedStateCopyWithImpl<$Res>;
-  $Res call({List<Post> posts});
+  $Res call({List<Post> posts, Post? postOfTheDay});
 }
 
 /// @nodoc
@@ -340,12 +340,17 @@ class __$$PostsLoadedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? posts = freezed,
+    Object? postOfTheDay = freezed,
   }) {
     return _then(_$PostsLoadedState(
       posts == freezed
           ? _value._posts
           : posts // ignore: cast_nullable_to_non_nullable
               as List<Post>,
+      postOfTheDay == freezed
+          ? _value.postOfTheDay
+          : postOfTheDay // ignore: cast_nullable_to_non_nullable
+              as Post?,
     ));
   }
 }
@@ -353,7 +358,8 @@ class __$$PostsLoadedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$PostsLoadedState implements PostsLoadedState {
-  const _$PostsLoadedState(final List<Post> posts) : _posts = posts;
+  const _$PostsLoadedState(final List<Post> posts, this.postOfTheDay)
+      : _posts = posts;
 
   final List<Post> _posts;
   @override
@@ -363,8 +369,11 @@ class _$PostsLoadedState implements PostsLoadedState {
   }
 
   @override
+  final Post? postOfTheDay;
+
+  @override
   String toString() {
-    return 'PostsState.loaded(posts: $posts)';
+    return 'PostsState.loaded(posts: $posts, postOfTheDay: $postOfTheDay)';
   }
 
   @override
@@ -372,12 +381,16 @@ class _$PostsLoadedState implements PostsLoadedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostsLoadedState &&
-            const DeepCollectionEquality().equals(other._posts, _posts));
+            const DeepCollectionEquality().equals(other._posts, _posts) &&
+            const DeepCollectionEquality()
+                .equals(other.postOfTheDay, postOfTheDay));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_posts));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_posts),
+      const DeepCollectionEquality().hash(postOfTheDay));
 
   @JsonKey(ignore: true)
   @override
@@ -389,10 +402,10 @@ class _$PostsLoadedState implements PostsLoadedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
+    required TResult Function(List<Post> posts, Post? postOfTheDay) loaded,
     required TResult Function(Failure failure) failure,
   }) {
-    return loaded(posts);
+    return loaded(posts, postOfTheDay);
   }
 
   @override
@@ -400,10 +413,10 @@ class _$PostsLoadedState implements PostsLoadedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
   }) {
-    return loaded?.call(posts);
+    return loaded?.call(posts, postOfTheDay);
   }
 
   @override
@@ -411,12 +424,12 @@ class _$PostsLoadedState implements PostsLoadedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(posts);
+      return loaded(posts, postOfTheDay);
     }
     return orElse();
   }
@@ -460,9 +473,11 @@ class _$PostsLoadedState implements PostsLoadedState {
 }
 
 abstract class PostsLoadedState implements PostsState {
-  const factory PostsLoadedState(final List<Post> posts) = _$PostsLoadedState;
+  const factory PostsLoadedState(
+      final List<Post> posts, final Post? postOfTheDay) = _$PostsLoadedState;
 
   List<Post> get posts;
+  Post? get postOfTheDay;
   @JsonKey(ignore: true)
   _$$PostsLoadedStateCopyWith<_$PostsLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -544,7 +559,7 @@ class _$PostsFailedState implements PostsFailedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
+    required TResult Function(List<Post> posts, Post? postOfTheDay) loaded,
     required TResult Function(Failure failure) failure,
   }) {
     return failure(this.failure);
@@ -555,7 +570,7 @@ class _$PostsFailedState implements PostsFailedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
   }) {
     return failure?.call(this.failure);
@@ -566,7 +581,7 @@ class _$PostsFailedState implements PostsFailedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
+    TResult Function(List<Post> posts, Post? postOfTheDay)? loaded,
     TResult Function(Failure failure)? failure,
     required TResult orElse(),
   }) {

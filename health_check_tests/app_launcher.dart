@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcase_app/app/app.dart';
@@ -19,40 +22,43 @@ import 'package:showcase_app/feature/profile/domain/use_case/login_use_case.dart
 import 'package:showcase_app/feature/profile/domain/use_case/logout_use_case.dart';
 import 'package:showcase_app/injection/injection.dart';
 
-import 'mocks/app_http_client_mock.dart';
-import 'mocks/logger_mock.dart';
-import 'mocks/mock_server_responses_manager.dart';
+import '../test/util/main_screen_launcher.dart';
 
-const Size screenSize = Size(375, 812);
-
-Future<Widget> getMainScreenWidget(
-  WidgetTester tester, {
-  bool loggedIn = false,
-}) async {
+Future<void> launchHomeScreen(WidgetTester tester) async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  await _configureTestDependencies(loggedIn: loggedIn);
+  HttpOverrides.global = null;
+  GoogleFonts.config.allowRuntimeFetching = false;
+
+  const appWidget = App();
   await tester.binding.setSurfaceSize(screenSize);
-  return const App();
+  await _configureDependencies();
+  await tester.pumpWidget(appWidget);
+
+  // Wait for data to load
+  await Future.delayed(const Duration(seconds: 1));
+
+  // Update main screen with data
+  await tester.pump();
 }
 
-Future<void> _configureTestDependencies({required bool loggedIn}) async {
-  SharedPreferences.setMockInitialValues(
-    loggedIn ? {'userKey': 'user@test.com'} : {},
-  );
+Future<void> _configureDependencies() async {
   await getIt.reset();
-  MockServerResponsesManager().clearAll();
+  await dotenv.load();
 
   //common
-  getIt.registerSingleton<AppHttpClient>(AppHttpClientMock());
-  getIt.registerSingleton<Logger>(LoggerMock());
+  getIt.registerSingleton<AppHttpClient>(AppHttpClient());
+  getIt.registerSingleton<Logger>(Logger());
+
+  //ignore: invalid_use_of_visible_for_testing_member
+  SharedPreferences.setMockInitialValues({});
   final sharedPrefs = await SharedPreferences.getInstance();
 
   //posts
   getIt.registerSingleton<PostsDataSource>(
     PostsRestDataSource(
-      userId: 123,
-      apiKey: 'api_key',
-      url: ApiService.postsDataSource.toString(),
+      userId: int.parse(dotenv.env['USER_ID'].toString()),
+      apiKey: dotenv.env['API_KEY'].toString(),
+      url: 'https://gorest.co.in/public/v2',
       appHttpClient: getIt(),
     ),
   );
@@ -76,55 +82,11 @@ Future<void> _configureTestDependencies({required bool loggedIn}) async {
   getIt.registerSingleton<CheckAuthenticatedUserUseCase>(
     CheckAuthenticatedUserUseCase(repository: getIt()),
   );
+
   getIt.registerSingleton<LogoutUseCase>(
     LogoutUseCase(repository: getIt()),
   );
   getIt.registerSingleton<LoginUseCase>(
     LoginUseCase(repository: getIt()),
   );
-}
-
-Future<void> launchTab(WidgetTester tester, Widget widget, TabName tab) async {
-  await tester.pumpWidget(widget);
-  await tester.pump();
-  await waitForAnimation(tester);
-
-  await selectTab(tester, tab);
-}
-
-Future<void> selectTab(WidgetTester tester, TabName tab) async {
-  await tester.tap(find.text(tab.getDisplayName()));
-  await tester.pump();
-  await waitForAnimation(tester);
-  await tester.pump();
-}
-
-Future<void> waitForAnimation(WidgetTester tester) async {
-  return tester.pump(const Duration(milliseconds: 500));
-}
-
-Future<void> waitForAnimations(
-  WidgetTester tester, {
-  int count = 2,
-}) async {
-  for (var i = 0; i < count; i++) {
-    await waitForAnimation(tester);
-  }
-}
-
-Future<void> waitForFlashbarToClose(WidgetTester tester) async {
-  await tester.pumpAndSettle(const Duration(seconds: 3));
-}
-
-enum TabName { posts, profile }
-
-extension TabNameExt on TabName {
-  String getDisplayName() {
-    switch (this) {
-      case TabName.posts:
-        return 'Posts';
-      case TabName.profile:
-        return 'Profile';
-    }
-  }
 }

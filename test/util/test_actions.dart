@@ -1,5 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:showcase_app/bootstrap.dart';
 
 Finder findTextWidget(String str) => find.text(str);
 
@@ -74,6 +76,18 @@ Future<void> _dragUntilVisible(
   );
   await tester.pump();
 }
+
+Finder findTypeWidget(Type type) => find.byType(type);
+
+Finder findTextWidgetWhichContains(String str) => find.byWidgetPredicate(
+      (widget) => widget is RichText && widget.text.toPlainText().contains(str),
+    );
+
+T logBlocEvents<T>(T Function() body) => BlocOverrides.runZoned<T>(
+      body,
+      blocObserver: AppBlocObserver(),
+    );
+
 
 extension FinderMatchExtension on Finder {
   void never() => expect(this, findsNothing);
