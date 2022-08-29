@@ -57,7 +57,7 @@ Future<void> _configureDependencies() async {
   //posts
   getIt.registerSingleton<PostsDataSource>(
     PostsRestDataSource(
-      userId: int.parse(dotenv.env['USER_ID'].toString()),
+      userId: int.parse(dotenv.env['USER_ID']!),
       apiKey: dotenv.env['API_KEY'].toString(),
       url: 'https://gorest.co.in/public/v2',
       appHttpClient: getIt(),
