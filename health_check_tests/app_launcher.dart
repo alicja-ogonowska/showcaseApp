@@ -33,9 +33,10 @@ Future<void> launchHomeScreen(WidgetTester tester) async {
   await tester.binding.setSurfaceSize(screenSize);
   await _configureDependencies();
   await tester.pumpWidget(appWidget);
+  await tester.pump();
 
   // Wait for data to load
-  await Future.delayed(const Duration(seconds: 1));
+  await Future.delayed(const Duration(seconds: 2));
 
   // Update main screen with data
   await tester.pump();

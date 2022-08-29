@@ -33,12 +33,22 @@ class PostOfTheDay extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  context.l10n.postOfTheDayTitle,
-                  style: whiteTextStyle.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      context.l10n.postOfTheDayTitle,
+                      style: whiteTextStyle.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Text(
+                      '🏅',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16),
                 Text(
