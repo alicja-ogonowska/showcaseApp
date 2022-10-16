@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:showcase_app/common/presentation/asset_images.dart';
 import 'package:showcase_app/common/presentation/widget/flash_bar.dart';
 import 'package:showcase_app/feature/posts/domain/use_case/add_post_use_case.dart';
 import 'package:showcase_app/feature/posts/presentation/cubit/add_post/add_post_cubit.dart';
@@ -64,7 +65,7 @@ class _AddNewPostView extends StatelessWidget {
                   },
                 ),
                 const Image(
-                  image: AssetImage('assets/talking.webp'),
+                  image: AssetImage(AssetImages.addPostHeader),
                   height: 130,
                 ),
               ],

@@ -31,7 +31,6 @@ class _MainScreenState extends State<MainScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _tabController = TabController(length: _bottomBarTabCount, vsync: this);
-    //todo check if needed
     context.read<NavigationCubit>().selectFirstTab();
   }
 

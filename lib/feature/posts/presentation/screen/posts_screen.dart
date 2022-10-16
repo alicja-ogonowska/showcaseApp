@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:showcase_app/common/presentation/asset_images.dart';
 import 'package:showcase_app/common/presentation/widget/button.dart';
 import 'package:showcase_app/feature/posts/domain/entity/post.dart';
 import 'package:showcase_app/feature/posts/presentation/cubit/posts_cubit.dart';
@@ -50,7 +51,7 @@ class _ErrorView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          const Image(image: AssetImage('assets/error.webp')),
+          const Image(image: AssetImage(AssetImages.error)),
           const SizedBox(height: 16),
           Button(
             child: Text(context.l10n.tryAgain),
@@ -86,7 +87,7 @@ class _PostsView extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const Image(image: AssetImage('assets/cover.webp')),
+                  const Image(image: AssetImage(AssetImages.postsHeader)),
                   PostOfTheDay(post: postOfTheDay),
                   ListView.builder(
                     shrinkWrap: true,

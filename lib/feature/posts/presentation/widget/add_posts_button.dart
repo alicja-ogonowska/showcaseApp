@@ -12,7 +12,7 @@ class AddPostsButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         padding: const EdgeInsets.all(16),
-        primary: Colors.deepOrangeAccent,
+        backgroundColor: Colors.deepOrangeAccent,
       ),
       child: const Icon(
         Icons.add,
