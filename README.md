@@ -24,6 +24,8 @@ If you prefer articles than videos, let me know - with proper motivation, I may 
 
 
 ## About the app 📝
+<img width="200" src="https://alicjaogonowska.pl/wp-content/uploads/2022/10/posts.png"/>         <img width="200" src="https://alicjaogonowska.pl/wp-content/uploads/2022/10/add_post.png"/><img width="200" src="https://alicjaogonowska.pl/wp-content/uploads/2022/10/login.png"/><img width="200" src="https://alicjaogonowska.pl/wp-content/uploads/2022/10/welcome.png"/>
+
 Main screen of the app contains 2 tabs - Posts and Profile.
 
 Posts tab displays a list of posts fetched from the API. It also features a so called Post of the day.
