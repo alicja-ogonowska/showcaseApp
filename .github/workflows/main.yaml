@@ -10,5 +10,5 @@ jobs:
     uses: ./.github/workflows/flutter_package.yml
     with:
       flutter_channel: stable
-      flutter_version: 3.0.4
+      flutter_version: 3.3.0
       min_coverage: 80

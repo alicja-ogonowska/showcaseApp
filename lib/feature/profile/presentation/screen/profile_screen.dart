@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:showcase_app/common/presentation/asset_images.dart';
 import 'package:showcase_app/common/presentation/widget/button.dart';
 import 'package:showcase_app/feature/profile/domain/entity/user.dart';
 import 'package:showcase_app/feature/profile/presentation/cubit/user_cubit.dart';
@@ -45,7 +46,7 @@ class _AuthenticatedUserView extends StatelessWidget {
           style: GoogleFonts.patrickHand(fontSize: 30),
           textAlign: TextAlign.center,
         ),
-        const Image(image: AssetImage('assets/welcome.webp')),
+        const Image(image: AssetImage(AssetImages.welcome)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Button(
@@ -84,7 +85,7 @@ class _UnauthenticatedUserView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          const Image(image: AssetImage('assets/login.webp')),
+          const Image(image: AssetImage(AssetImages.login)),
           LoginForm(
             onLogin: (email, password) => _onLogin(context, email, password),
           ),
