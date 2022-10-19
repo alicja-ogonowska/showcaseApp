@@ -26,7 +26,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   @override
   void didChangeDependencies() {
     precacheImage(const AssetImage(AssetImages.error), context);
