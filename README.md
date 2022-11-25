@@ -16,9 +16,8 @@ Full widget tree testing is a concept in which we exercise whole app during widg
 To look for bugs that may hide between widgets and their interactions. To make sure that we not only have a pretty screen, but we can also navigate to and back from it. Widget tests are quick to run, just as unit tests and give us similar confidence level as integration tests (which are not that quick and easy to write).
 
 ### I want to know more!
-
-If looking through code is not enough, you can check the recording of the talk I gave at Flutter Vikings 2022.
-You can also see it during Droidcon London 2022.
+Here are my slides from Droidcon - [LINK TO SLIDES][droidcon_slides]
+Here is the recorded talk from Droidcon - [LINK TO TALK][droidcon_recording]
 
 If you prefer articles than videos, let me know - with proper motivation, I may write an article based on my talk.
 
@@ -202,3 +201,5 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [go_rest_login_link]: https://gorest.co.in/consumer/login
 [vector_images_link]: http://www.freepik.com
 [natalie_article_link]:https://cogitas.net/unleash-full-power-flutter-widget-tests/
+[droidcon_slides]:https://docs.google.com/presentation/d/1oOUcf8XrI_IN5VJXp9bEHLNcz8idp4Xu_OFFXoqcUYI/edit?usp=sharing
+[droidcon_recording]:https://www.droidcon.com/2022/11/15/lets-test-the-full-widget-tree/
