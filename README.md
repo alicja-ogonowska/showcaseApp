@@ -19,6 +19,9 @@ To look for bugs that may hide between widgets and their interactions. To make s
 Here are my slides from Droidcon - [LINK TO SLIDES][droidcon_slides]
 Here is the recorded talk from Droidcon - [LINK TO TALK][droidcon_recording]
 
+### A może wolisz po polsku?
+Tutaj znajdziesz prezentację po polsku - [LINK DO PREZENTACJI][fluttered_slides]
+
 If you prefer articles than videos, let me know - with proper motivation, I may write an article based on my talk.
 
 
@@ -203,3 +206,4 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [natalie_article_link]:https://cogitas.net/unleash-full-power-flutter-widget-tests/
 [droidcon_slides]:https://docs.google.com/presentation/d/1oOUcf8XrI_IN5VJXp9bEHLNcz8idp4Xu_OFFXoqcUYI/edit?usp=sharing
 [droidcon_recording]:https://www.droidcon.com/2022/11/15/lets-test-the-full-widget-tree/
+[fluttered_slides]:https://docs.google.com/presentation/d/e/2PACX-1vR0KaU-GRpTXLGfediuQVZyjCKzHfGc_Znn36v2AGWcRcDlvc1vkm5W2zdJNSNHSQ/pub?start=false&loop=false&delayms=3000
